@@ -1,8 +1,16 @@
+/*
+Autore:				Andrea Storace
+Ultima modifica:	16/06/2017
+Descrizione:		Libreria principale del tipo di dato GRAPH;
+*/
 #ifndef GRAPH
 #define GRAPH
 
-//uncomment the following line to implement unoriented graph:
-//#define UNORIENTED
+// uncomment the following line to implement unoriented graph:
+// #define UNORIENTED
+
+// uncomment the following line to display weight field:
+// #define SHOW_WEIGHT
 
 #include <cstddef>
 #include <iostream>
@@ -58,13 +66,18 @@ bool areAdjacent(Label, Label, const Graph&);
 // Ritorna la lista di adiacenza di un vertice
 list::List adjacentList(Label, const Graph&);
 
+
 // Calcola, se esiste, un cammino tra due vertici
 void findPath(Label, Label, list::List &, int &, const Graph& g);
-
-// Calcola, se esiste, un cammino tra due vertici(in modo casuale)
-void randomWalk(Label, Label, list::List&, const Graph&);
 }
 
+// Ritorna la lista dei vertici del grafo:
+list::List verticesList(const graph::Graph&);
+
+bool isCrossed(graph::Label, graph::Label, const graph::Graph&);
+
+void set_Crossed(graph::Label, graph::Label, const graph::Graph&);
+void set_uncrossed(graph::Label, graph::Label, const graph::Graph&);
 
 /* Funzioni che non caratterizzano il TDD Graph, ma che servono per input/output */
 void printGraph(const graph::Graph&);

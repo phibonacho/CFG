@@ -35,7 +35,6 @@ int vertexIndex(Label, const Graph&);
 Label* dijkstra(Graph&, Label, Label, int&);
 int computeLenght(const list::List&, const Graph&, int);
 void findPath_aux(Graph&, Label, Label, Label*, list::List&);
-void randomWalk_aux(Label, Label, list::List&, Graph&);
 void printAdj(const adjList&);
 
 // Restituisce il grafo vuoto
@@ -147,24 +146,6 @@ void graph::findPath(Label v1, Label v2, list::List &path, int &len, const Graph
 	delete[] prev;
 }
 
-void randomWalk(Label v1, Label v2, list::List& path, const Graph& g){
-	adjList tmp;
-	//check if node is empty:
-	if(g==emptyGraph) return;
-	//add label to path:
-	list::addBack(path, g->payload);
-	//check if label is destination one:
-	if(g->payload==v2)return;
-	//get adjoinment number:
-	int degree, rindex;
-	if(!nodeDegree(g->payload, degree, g)) return;
-	//compute random index:
-	rindex = rand()%degree;
-	//get 
-	for(int i=0, tmp=g->edges; tmp!=emptyEdge, i<rindex; tmp=tmp->nextEdge, i++);
-	
-}
-
 /*******************************************************************************************************/
 // Stampa il grafo
 
@@ -175,6 +156,28 @@ void printGraph(const graph::Graph& g) {
 	cout<<endl;
 	return printGraph(g->nextVertex);
 }
+
+bool isCrossed(Label v1, Label v2, const Graph& g){
+	Graph tmp = getVertex(v1, g);
+	adjList aux;
+	for(aux=tmp->edges; aux!=emptyEdge; aux=aux->nextEdge) if((aux->dest)->payload==v2) return aux->weight;
+	return false;
+}
+
+void set_Crossed(Label v1, Label v2,const graph::Graph& g){
+	graph::Graph tmp = getVertex(v1, g);
+	adjList aux;
+	for(aux=tmp->edges; aux!=emptyEdge; aux=aux->nextEdge) if((aux->dest)->payload==v2) break;
+	aux->weight=1;	
+}
+
+void set_uncrossed(graph::Label v1, graph::Label v2, const graph::Graph& g){
+	graph::Graph tmp = getVertex(v1, g);
+	adjList aux;
+	for(aux=tmp->edges; aux!=emptyEdge; aux=aux->nextEdge) if((aux->dest)->payload==v2) break;
+	aux->weight=0;
+}
+
 /***************************************FUNZIONI AUSILIARIE******************************/
 bool memberNode(Label l, const Graph& g){
 	if(g==emptyGraph)return false;
@@ -187,7 +190,11 @@ void printAdj(const adjList& e){
 		cout<<"\b\b.";
 		return;	
 	} 
-	cout<<e->dest->payload<<"("<<e->weight<<"), ";
+	cout<<e->dest->payload;
+#ifdef SHOW_WEIGHT
+	cout<<"("<<e->weight<<")";
+#endif
+	cout<<", ";
 	return printAdj(e->nextEdge);
 }
 
@@ -271,8 +278,4 @@ void findPath_aux(Graph& g, Label from, Label to, Label* previous, list::List& p
 		tmp_index = vertexIndex(temp_label, g);
 		temp_label = previous[tmp_index];
 	}
-}
-
-void randomWalk_aux(Label v1, Label v2, list::List& path, Graph& g){
-
 }

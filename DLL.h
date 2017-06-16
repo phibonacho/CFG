@@ -1,11 +1,16 @@
+/*
+Autore:				Andrea Storace
+Ultima modifica:	16/06/2017
+Descrizione:		Libreria principale del tipo di dato LISTA;
+*/
+
 #ifndef DLL
 #define DLL
 #include <iostream>
 #include <string>
+
 using namespace std;
-/*
-Libreria che implementa funzioni sulle Liste doppiamente collegate di Elem;
-*/
+
 namespace list{
 	typedef string Elem;
 	

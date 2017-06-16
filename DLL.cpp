@@ -47,7 +47,7 @@ List list::createEmpty(){
 }
 
 void list::addFront(List& l, const Elem& e){
-	if(member(l, e)) return;//throw alreadysetException;
+	//if(member(l, e)) return;//throw alreadysetException;
 	List aux = new Cell;
 	aux->elem = emptyElem;
 	aux->elem = e;
@@ -58,7 +58,7 @@ void list::addFront(List& l, const Elem& e){
 }
 
 void list::addBack(List& l, const Elem& e){
-	if(member(l, e)) return;//throw alreadysetException;
+	//if(member(l, e)) return;//throw alreadysetException;
 	List aux = new Cell;
 	aux->elem = e;
 	aux->next = l;
@@ -69,7 +69,7 @@ void list::addBack(List& l, const Elem& e){
 }
 
 void list::add(List& l, const Elem& e, unsigned int n){
-	if(member(l, e)) return;//throw alreadysetException;
+	//if(member(l, e)) return;//throw alreadysetException;
 	List aux = l->next;
 	for(unsigned int i = 0; i<n-1; i++){
 		if(aux==l) throw lenghtException;
@@ -134,11 +134,9 @@ unsigned int list::size(const List& l){
 }
 
 void list::clear(List& l){
-	if(l->next==l) return;
-	List tmp = l->next;
-	delete l;
-	l = NULL;
-	return clear(tmp);
+	while(!isEmpty(l)){
+		popFront(l);
+	}
 }
 
 void printList(const list::List& l){
