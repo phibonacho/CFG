@@ -143,7 +143,7 @@ void get_instruction(istream& in, Graph& g, list::List& prevlines, bool is_subin
 	return;
 }
 
-// This is not a parser, but it dreams to be one, one day. Not today anyway.
+// This is not a parser, but it dreams of becoming one, one day. Not today anyway.
 ERROR parser_wannabe(istream& iss, bool is_subinstruction){
 	I_TYPE instr_type;
 	string tmp;
