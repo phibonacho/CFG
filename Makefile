@@ -24,8 +24,8 @@ $(E).out: $(M).cpp $(C).o $(G).o $(L).o $(CU).o
 	@cat README.md | less
 	g++ $(M).cpp $(C).o $(CU).o $(G).o $(L).o -o $(E).out -ansi -Wall -std=c++11 2> compilation$(CR)
 
-launch: $(E).out
-	@./$(E).out ${FILE_NAME} ${BUDGET} | less -R
+demo: $(E).out
+	@./$(E).out sample.txt 10 | less -R
 
 clean :
 	/bin/rm -f *.o *.out $(L)$(R) $(G)$(R) $(CU)$(R) $(C)$(R) compilation$(R) 
