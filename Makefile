@@ -21,7 +21,7 @@ $(C).o: $(C).h $(C).cpp
 	g++ -c $(C).cpp -ansi -Wall -std=c++11 2>$(C)$(R)
 
 $(E).out: $(M).cpp $(C).o $(G).o $(L).o $(CU).o
-	@cat README | less
+	@cat README.md | less
 	g++ $(M).cpp $(C).o $(CU).o $(G).o $(L).o -o $(E).out -ansi -Wall -std=c++11 2> compilation$(CR)
 
 launch: $(E).out
