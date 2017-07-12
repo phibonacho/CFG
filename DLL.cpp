@@ -1,35 +1,8 @@
 #include "DLL.h"
+
 using namespace list;
-/*
-namespace dll{
-	//struttura delle Celle:
-	struct Cell{
-		Elem elem;
-		Cell* next;
-		Cell* prev;
-	};
 
-	typedef Cell* List;
-
-	//crea Lista vuota:
-	List create_empty();
-	//aggiunge in cima:
-	void pushFront(List&, const Elem&);
-	//aggiunge in coda:
-	void pushBack(List&, const Elem&);
-	//elimina elemnto in cima:
-	Elem popFront(List&);
-	//aggiunge nella posizione n:
-	void insert_at(List&, const Elem&, unsigned int);
-	//elimina elemento in coda:
-	Elem popBack(List&);
-	//restituisce elemento in cima:
-	Elem top(List&);
-	//verifica se la Lista è vuota:
-	bool isEmpty(List&);
-}
-*/
-
+// helper function:
 bool member(const List& l, const Elem& e){
 	List tmp = l->next;
 	while(tmp!=l){
