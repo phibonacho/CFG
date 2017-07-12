@@ -3,7 +3,7 @@
 using namespace graph;
 
 typedef struct edgeNode{
-	//peso della cella;
+	//peso dell'arco;
 	int weight;
 	//puntatore al nodo di destinazione;
 	vertexNode* dest;
@@ -159,8 +159,13 @@ void printGraph(const graph::Graph& g) {
 
 bool isCrossed(Label v1, Label v2, const Graph& g){
 	Graph tmp = getVertex(v1, g);
+	if(tmp==emptyGraph) throw -42;
 	adjList aux;
-	for(aux=tmp->edges; aux!=emptyEdge; aux=aux->nextEdge) if((aux->dest)->payload==v2) return aux->weight;
+	for(aux=tmp->edges; aux!=emptyEdge; aux=aux->nextEdge){
+		if((aux->dest)->payload==v2){
+			return aux->weight!=0;
+		}
+	}
 	return false;
 }
 
@@ -168,6 +173,7 @@ void set_Crossed(Label v1, Label v2,const graph::Graph& g){
 	graph::Graph tmp = getVertex(v1, g);
 	adjList aux;
 	for(aux=tmp->edges; aux!=emptyEdge; aux=aux->nextEdge) if((aux->dest)->payload==v2) break;
+	if(aux==emptyEdge) return;
 	aux->weight=1;	
 }
 
