@@ -5,8 +5,6 @@ CU=cfg_utility
 C=cfg
 R=_result.txt
 E=executable
-ZNAME=StoraceA
-DIRNAME=Lab10
 
 $(L).o: $(L).cpp $(L).h
 	g++ -c $(L).cpp -ansi -Wall -std=c++11 2>$(L)$(R)
