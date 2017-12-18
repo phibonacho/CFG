@@ -3,27 +3,50 @@ L=DLL
 G=graph
 CU=cfg_utility
 C=cfg
-R=_result.txt
+CL = $(OD)/libcfg.a
+CFLAGS = -ansi -Wall -std=c++11 -o
+OFLAGS = -Ilib -c $(CFLAGS)
+LDFLAGS = -L$(OD) -lcfg -lrt
 E=executable
+OD= objs
+BD = bin
+LD = lib
+OBJS = $(OD)/$(L).o $(OD)/$(G).o $(OD)/$(CU).o $(OD)/$(C).o $(OD)/$(M).o
 
-$(L).o: $(L).cpp $(L).h
-	g++ -c $(L).cpp -ansi -Wall -std=c++11 2>$(L)$(R)
+# Common library
+$(CL): $(OBJS) | $(OD)
+	ar rcs $@ $(OD)/*.o
 
-$(G).o: $(G).h $(G).cpp
-	g++ -c $(G).cpp -ansi -Wall -std=c++11 2>$(G)$(R)	
+# Object files:
+$(OD)/$(L).o: $(LD)/$(L).cpp $(LD)/$(L).h | $(OD)
+	g++ $< $(OFLAGS) $@
 
-$(CU).o: $(CU).h $(CU).cpp
-	g++ -c $(CU).cpp -ansi -Wall -std=c++11 2>$(CU)$(R)
+$(OD)/$(G).o: $(LD)/$(G).cpp $(LD)/$(G).h | $(OD)
+	g++ $< $(OFLAGS) $@	
 
-$(C).o: $(C).h $(C).cpp
-	g++ -c $(C).cpp -ansi -Wall -std=c++11 2>$(C)$(R)
+$(OD)/$(CU).o: $(LD)/$(CU).cpp $(LD)/$(CU).h | $(OD)
+	g++ $< $(OFLAGS) $@
 
-$(E).out: $(M).cpp $(C).o $(G).o $(L).o $(CU).o
+$(OD)/$(C).o: $(LD)/$(C).cpp $(LD)/$(C).h | $(OD)
+	g++ $< $(OFLAGS) $@
+
+# Main object file:
+$(OD)/$(M).o: $(M).cpp | $(OD) 
+	g++ $< $(OFLAGS) $@
+
+# Executable:	
+$(BD)/$(E).out: $(CL) | $(BD) 
+	g++ -o $@ $(LDFLAGS)
+
+$(BD):
+	mkdir -p $(BD)
+
+$(OD):
+	mkdir -p $(OD)
+
+demo: $(BD)/$(E).out
 	@cat README.md | less
-	g++ $(M).cpp $(C).o $(CU).o $(G).o $(L).o -o $(E).out -ansi -Wall -std=c++11 2> compilation$(CR)
+	@./$(BD)/$(E).out samples/sample.txt 10 | less -R
 
-demo: $(E).out
-	@./$(E).out sample.txt 10 | less -R
-
-clean :
-	/bin/rm -f *.o *.out $(L)$(R) $(G)$(R) $(CU)$(R) $(C)$(R) compilation$(R) 
+clean:
+	rm -rf $(OD) $(BD) $(L)$(R) $(G)$(R) $(CU)$(R) $(C)$(R) compilation$(R) 
