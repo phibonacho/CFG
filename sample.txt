@@ -1,8 +1,0 @@
-1 q=10
-2 IF (q%2==0) GOTO 4
-3 q+=1
-4 IF (q%3==0) GOTO 6
-5 q*=3
-6 IF (q%4==0) GOTO 2
-7 END
-
