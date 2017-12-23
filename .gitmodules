@@ -1,3 +1,6 @@
 [submodule "Graph"]
 	path = lib/Graph
 	url = https://github.com/rollingflamingo/Graph
+[submodule "lib/DLL"]
+	path = lib/DLL
+	url = https://github.com/rollingflamingo/DLL.git
