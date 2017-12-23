@@ -49,4 +49,4 @@ demo: $(BD)/$(E).out
 	@./$(BD)/$(E).out samples/sample.txt 10 | less -R
 
 clean:
-	rm -rf $(OD) $(BD) $(L)$(R) $(G)$(R) $(CU)$(R) $(C)$(R) compilation$(R) 
+	rm -rf $(OD) $(BD) 
